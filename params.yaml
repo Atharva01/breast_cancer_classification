@@ -3,5 +3,5 @@ split:
   random_state: 42
 
 train:
-  C: 0.1
+  C: 10
   max_iter: 5000
