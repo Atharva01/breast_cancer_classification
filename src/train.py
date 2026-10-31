@@ -68,6 +68,7 @@ model = Pipeline([
     (
         "classifier",
         LogisticRegression(
+            C=C,
             max_iter=5000,
             random_state=RANDOM_STATE,
         )
