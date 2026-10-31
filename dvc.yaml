@@ -1,0 +1,43 @@
+stages:
+
+  split:
+    cmd: python src/split_data.py
+
+    deps:
+    - data/raw/breast_cancer.csv
+    - src/split_data.py
+
+    outs:
+    - data/processed/test.csv
+    - data/processed/train.csv
+
+    params:
+    - split.test_size
+    - split.random_state
+
+  train:
+    cmd: python src/train.py
+
+    deps:
+    - data/processed/train.csv
+    - src/train.py
+
+    params:
+    - train.C
+    - train.max_iter
+
+    outs:
+    - models/model.pkl
+  
+  evaluate:
+    cmd: python src/evaluate.py
+
+    deps:
+    - data/processed/test.csv
+    - models/model.pkl
+    - src/evaluate.py
+
+    metrics:
+      - metrics/final_metrics.json:
+          cache: false
+
